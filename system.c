@@ -38,14 +38,16 @@ static void cycleCounterInit(void)
   */
 void SysTick_Handler(void)
 {
+#ifdef USE_FREERTOS
 #if (INCLUDE_xTaskGetSchedulerState  == 1 )
-  if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED)
-  {
+    if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED)
+    {
 #endif  /* INCLUDE_xTaskGetSchedulerState */
-    xPortSysTickHandler();
+        xPortSysTickHandler();
 #if (INCLUDE_xTaskGetSchedulerState  == 1 )
-  }
+    }
 #endif  /* INCLUDE_xTaskGetSchedulerState */
+#endif /* USE_FREERTOS*/
     sysTickUptime++;
 }
 
